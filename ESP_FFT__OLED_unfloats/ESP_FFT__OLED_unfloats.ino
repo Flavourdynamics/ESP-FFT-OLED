@@ -7,10 +7,12 @@
 #define LEDper (LEDtileheight*LEDtilevert)
 #define LEDtotal (LEDstrips*LEDper)
 #include "EQ.h"
+#include "OTA.h"
 #include <BluetoothSerial.h>
 #include "heltec.h"
 
 BluetoothSerial Bluetooth;
+TaskHandle_t Core0;
 
 CRGB leds[LEDtotal];
 byte hue;
@@ -33,8 +35,23 @@ void setup() {
   Heltec.display->setContrast(255);
   Heltec.display->setLogBuffer(5, 30);
   Heltec.display->clear();
+
+  xTaskCreatePinnedToCore(Core0fn, "Core0", 10000, NULL, 1, &Core0, 0);
+  OTAsetup();
   
   delay(1000);
+}
+
+void Core0fn( void * pvParameters ){
+  while(1){   
+    WIFIserver.handleClient();
+    EVERY_N_MILLIS(1000){
+      if(WIFImulti.run() != WL_CONNECTED) {
+        Serial.println("WiFi not connected!");
+      }
+    }
+    vTaskDelay(1);   
+  }
 }
 
 void loop() { 
