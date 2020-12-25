@@ -298,7 +298,7 @@ void EQbeatDetection() {
     // 1 = beat hasn't dropped / reset yet
     // 2 = beat detected
     // Beat is detected here. Must be greater than the average+(2.3*st.dev) and greater than 0.004212 which may need to be adjusted
-    if (EQbuff[i] > EQaverage[i] + 2.8 * EQstDev[i] && EQbuff[i] > noisethresh[i] + 2.8 * EQstDev[i] ) {
+    if (EQbuff[i] > EQaverage[i] + 2.9 * EQstDev[i] && EQbuff[i] > noisethresh[i] + 2.9 * EQstDev[i] ) {
       if (EQbeatDetected[i] == 2){
         EQbeatDetected[i] = 1;
       }

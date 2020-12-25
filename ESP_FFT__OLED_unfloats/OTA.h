@@ -164,4 +164,13 @@ void OTAsetup(){
   WIFIserver.begin();
 }
 
+void WIFIruntime(){
+  WIFIserver.handleClient();
+  EVERY_N_MILLIS(1000){
+    if(WIFImulti.run() != WL_CONNECTED) {
+      Serial.println("WiFi not connected!");
+    }
+  }
+}
+
 #endif

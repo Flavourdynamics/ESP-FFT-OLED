@@ -29,9 +29,10 @@ void setup() {
   
   pinMode(ledPin, OUTPUT);
   EQsampletimer = round(1000000 * (1.0 / EQsamplefreq));
-  Bluetooth.begin("Starshroud");
-  Heltec.begin(true /*DisplayEnable Enable*/, false /*LoRa Disable*/, true /*Serial Enable*/);
   
+  Bluetooth.begin("Starshroud");
+  
+  Heltec.begin(true /*DisplayEnable Enable*/, false /*LoRa Disable*/, true /*Serial Enable*/);
   Heltec.display->setContrast(255);
   Heltec.display->setLogBuffer(5, 30);
   Heltec.display->clear();
@@ -44,12 +45,7 @@ void setup() {
 
 void Core0fn( void * pvParameters ){
   while(1){   
-    WIFIserver.handleClient();
-    EVERY_N_MILLIS(1000){
-      if(WIFImulti.run() != WL_CONNECTED) {
-        Serial.println("WiFi not connected!");
-      }
-    }
+    WIFIruntime();
     vTaskDelay(1);   
   }
 }
