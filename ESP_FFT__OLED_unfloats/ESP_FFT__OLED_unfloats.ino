@@ -51,6 +51,7 @@ void Core0fn( void * pvParameters ){
 }
 
 void loop() { 
+  /*
   barz();
   //textbuffer();
   
@@ -62,6 +63,7 @@ void loop() {
     EQbeatDetection();    
     EQbeatBuckets();
     EQbeatBlink();
+    */
     
     //EQprintone(7);
     //EQprintall();
@@ -107,6 +109,7 @@ void justtext(){
     Heltec.display->display();
   }
 }
+
 void textbuffer(){
   EVERY_N_MILLIS(100){
     Heltec.display->clear();
